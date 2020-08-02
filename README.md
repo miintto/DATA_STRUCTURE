@@ -6,7 +6,7 @@
 - 단점 : 균형이 잡혀 있지 않은 경우 느려질 수 있음
 ### 1.1 삽입 알고리즘
 - 재귀함수를 이용하여 Node 객체 반환하는 방식으로 작성
-~~~
+~~~python
     def insert(self, value):
         self.root = self._insert_value(self.root, value)
 
@@ -22,10 +22,37 @@
 ~~~
 
 - 삽입
-~~~ python
+
+<img src="https://github.com/miintto/DATA_STRUCTURE/blob/master/img/binary_search_tree_insertion_animation.gif">
+
+~~~python
 tree = BinarySearchTree()
 array = [21, 28, 14, 32, 25, 18, 11, 30, 19, 15]
 for i in array:
     tree.insert(i)
+
+tree.print()
+
+<BinarySearchTree>
+ > Node.value = 21
+     > Node.value = 14
+         > Node.value = 11
+             > None
+             > None
+         > Node.value = 18
+             > Node.value = 15
+                 > None
+                 > None
+             > Node.value = 19
+                 > None
+                 > None
+     > Node.value = 28
+         > Node.value = 25
+             > None
+             > None
+         > Node.value = 32
+             > Node.value = 30
+                 > None
+                 > None
+             > None
 ~~~
-<img src="https://github.com/miintto/DATA_STRUCTURE/blob/master/img/binary_search_tree_insertion_animation.gif">
