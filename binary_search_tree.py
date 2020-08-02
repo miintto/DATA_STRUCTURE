@@ -32,6 +32,16 @@ class BinarySearchTree:
         """
         self.root = self._insert_value(self.root, value)
 
+    def search(self, value):
+        """
+        이진탐색트리 탐색 알고리즘
+            1. 부모 노드 값보다 작으면 왼쪽으로, 크면 오른쪽으로 이동
+            2. 일치하는 값이 있으면 Ture 반환
+            3. 더 이상 이동할 곳이 없으면 False 반환
+        """
+        result = self._search_value(self.root, value)
+        print(f'search {value} = {result}')
+
     def print(self):
         """
         이진탐색트리의 값 확인하도록
@@ -58,6 +68,16 @@ class BinarySearchTree:
             self._print_values(node.child_left, depth)
             self._print_values(node.child_right, depth)
 
+    def _search_value(self, node, value):
+        if node is None:
+            return False
+        elif node.value==value:
+            return True
+        elif value < node.value:
+            return self._search_value(node.child_left, value)
+        else:
+            return self._search_value(node.child_right, value)
+
 
 
 if __name__=='__main__':
@@ -68,3 +88,6 @@ if __name__=='__main__':
         tree.insert(i)
 
     tree.print()
+
+    tree.search(15)
+    tree.search(16)
