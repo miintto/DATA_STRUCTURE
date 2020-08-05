@@ -85,63 +85,41 @@ def _postorder_travel(self, node):
         print(f'{node}')
 ~~~
 
-- Code
+### 1.4 삭제 알고리즘
+ * 삭제할 노드의 자식이 두 개인 경우
+    - 오른쪽 자식 중 가장 작은 값으로 대체 (혹은 왼쪽 자식 중 가장 큰 값으로 대체)
+ * 삭제할 노드의 자식이 한 개인 경우
+    - 해당 노드의 부모와 자식 노드를 서로 연결
+ * 삭제할 노드가 말단 노드인 경우
+    - 해당 노드만 삭제
 ~~~python
->>> from binary_search_tree import BinarySearchTree
+def delete(self, value):
+    self.root, result = self._delete_value(self.root, value)
+    print(f'Delete value {value} : {result}', end='\n\n')
 
->>> tree = BinarySearchTree()
-
-### 삽입
->>> array = [21, 28, 14, 32, 25, 18, 11, 30, 19, 15]
->>> for i in array:
-...    tree.insert(i)
-
-### 탐색
->>> tree.search(15)
-Search value 15 : True
-
->>> tree.search(16)
-Search value 16 : False
-
-### 전위순회
->>> tree.preorder()
-<BinarySearchTree Preorder>
-TreeNode.value = 21
-TreeNode.value = 14
-TreeNode.value = 11
-TreeNode.value = 18
-TreeNode.value = 15
-TreeNode.value = 19
-TreeNode.value = 28
-TreeNode.value = 25
-TreeNode.value = 32
-TreeNode.value = 30
-
-### 중위순회
->>> tree.inorder()
-<BinarySearchTree Inorder>
-TreeNode.value = 11
-TreeNode.value = 14
-TreeNode.value = 15
-TreeNode.value = 18
-TreeNode.value = 19
-TreeNode.value = 21
-TreeNode.value = 25
-TreeNode.value = 28
-TreeNode.value = 30
-TreeNode.value = 32
-
-### 후위순회
->>> tree.postorder()
-<BinarySearchTree Postorder>
-TreeNode.value = 11
-TreeNode.value = 15
-TreeNode.value = 19
-TreeNode.value = 18
-TreeNode.value = 14
-TreeNode.value = 25
-TreeNode.value = 30
-TreeNode.value = 32
-TreeNode.value = 28
-TreeNode.value = 21
+def _delete_value(self, node, value):
+    result = True
+    if node is None:
+        return node, False
+    elif value == node.value:
+        if node.child_left and node.child_right:
+            parent = node
+            child = node.child_right
+            while child.child_left is not None:
+                parent = child
+                child = child.child_left
+            child.child_left = node.child_left
+            if parent != node:
+                parent.child_left = child.child_right
+                child.child_right = node.child_right
+            node = child
+        elif node.child_left or node.child_right:
+            node = node.child_left or node.child_right
+        else:
+            node = None
+    elif value < node.value:
+        node.child_left, result = self._delete_value(node.child_left, value)
+    else:
+        node.child_right, result = self._delete_value(node.child_right, value)
+    return node, result
 ~~~

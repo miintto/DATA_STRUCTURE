@@ -8,7 +8,7 @@ class TreeNode:
         self.value = value
 
     def __str__(self):
-        return f'TreeNode.value = {self.value}'
+        return f'<TreeNode.value = {self.value}>'
 
 
 class BinarySearchTree:
@@ -24,8 +24,6 @@ class BinarySearchTree:
     def insert(self, value):
         """
         이진탐색트리 삽입 알고리즘
-            재귀 함수 이용하여 Node 객체 반환
-
             1. 처음 값 삽입시 (root가 None인 경우) root에 입력
             2. 부모 노드의 값보다 작으면 왼쪽으로, 크면 오른쪽 노드로 이동
             3. 더 이상 이동할 곳이 없으면 (Node가 None인 경우) 해당 위치에 삽입
@@ -51,18 +49,20 @@ class BinarySearchTree:
             2. 일치하는 값이 있으면 Ture 반환
             3. 더 이상 이동할 곳이 없으면 False 반환
         """
-        result = self._search_value(self.root, value)
-        print(f'Search value {value} : {result}', end='\n\n')
+        result, n = self._search_value(self.root, value)
+        print(f'Search value {value} : {result}  ({n} times)', end='\n\n')
 
-    def _search_value(self, node, value):
+    def _search_value(self, node, value, n=1):
         if node is None:
-            return False
+            return False, n
         elif value == node.value:
-            return True
+            return True, n
         elif value < node.value:
-            return self._search_value(node.child_left, value)
+            n+=1
+            return self._search_value(node.child_left, value, n)
         else:
-            return self._search_value(node.child_right, value)
+            n+=1
+            return self._search_value(node.child_right, value, n)
 
 
     def preorder(self):
@@ -76,11 +76,12 @@ class BinarySearchTree:
         self._preorder_travel(self.root)
         print()
 
-    def _preorder_travel(self, node):
+    def _preorder_travel(self, node, depth=-1):
+        depth+=1
         if node is not None:
-            print(f'{node}')
-            self._preorder_travel(node.child_left)
-            self._preorder_travel(node.child_right)
+            print(f' {"|   "*depth}|-- {node}')
+            self._preorder_travel(node.child_left, depth)
+            self._preorder_travel(node.child_right, depth)
 
 
     def inorder(self):
@@ -94,11 +95,12 @@ class BinarySearchTree:
         self._inorder_travel(self.root)
         print()
 
-    def _inorder_travel(self, node):
+    def _inorder_travel(self, node, depth=-1):
+        depth+=1
         if node is not None:
-            self._inorder_travel(node.child_left)
-            print(f'{node}')
-            self._inorder_travel(node.child_right)
+            self._inorder_travel(node.child_left, depth)
+            print(f' {"|  "*depth}|-- {node}')
+            self._inorder_travel(node.child_right, depth)
 
 
     def postorder(self):
@@ -112,35 +114,58 @@ class BinarySearchTree:
         self._postorder_travel(self.root)
         print()
 
-    def _postorder_travel(self, node):
+    def _postorder_travel(self, node, depth=-1):
+        depth+=1
         if node is not None:
-            self._postorder_travel(node.child_left)
-            self._postorder_travel(node.child_right)
-            print(f'{node}')
+            self._postorder_travel(node.child_left, depth)
+            self._postorder_travel(node.child_right, depth)
+            print(f' {"|  "*depth}|-- {node}')
 
 
     def delete(self, value):
         """
         이진탐색트리 삭제 알고리즘
+            1. 삭제할 노드의 자식이 두 개인 경우
+                > 오른쪽 자식 중 가장 작은 값으로 채움
+            2. 삭제할 노드의 자식이 한 개인 경우
+                > 해당 노드의 부모와 자식 노드를 연결
+            3. 삭제할 노드가 leaf 노드인 경우
+                > 해당 노드 삭제
         """
         self.root, result = self._delete_value(self.root, value)
-        if result:
-            print(f'Delete value : {value}', end='\n\n')
-        else:
-            print(f'CANNOT find value : {value}', end='\n\n')
+        print(f'Delete value {value} : {result}', end='\n\n')
 
     def _delete_value(self, node, value):
         result = True
         if node is None:
             return node, False
         elif value == node.value:
-            node = None
-            ### TODO: 노드에 자식이 있는 경우는?
+            if node.child_left and node.child_right:
+                '''자식 노드가 둘 다 있는 경우'''
+                parent = node
+                child = node.child_right
+                while child.child_left is not None:
+                    parent = child
+                    child = child.child_left
+                    ### child: 대체할 노드
+                child.child_left = node.child_left
+                if parent != node:
+                    parent.child_left = child.child_right
+                    child.child_right = node.child_right
+                node = child
+            elif node.child_left or node.child_right:
+                '''자식 노드가 한 쪽만 있는 경우'''
+                node = node.child_left or node.child_right
+            else:
+                '''Leaf 노드인 경우'''
+                node = None
+
         elif value < node.value:
             node.child_left, result = self._delete_value(node.child_left, value)
         else:
             node.child_right, result = self._delete_value(node.child_right, value)
         return node, result
+
 
 if __name__=='__main__':
     tree = BinarySearchTree()
@@ -164,5 +189,7 @@ if __name__=='__main__':
     ### 삭제
     tree.delete(15)
     tree.delete(16)
+    tree.delete(18)
+    tree.delete(21)
 
     tree.inorder()
