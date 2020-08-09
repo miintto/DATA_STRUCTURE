@@ -139,6 +139,7 @@ class BinarySearchTree:
         result = True
         if node is None:
             return node, False
+
         elif value == node.value:
             if node.child_left and node.child_right:
                 '''자식 노드가 둘 다 있는 경우'''
