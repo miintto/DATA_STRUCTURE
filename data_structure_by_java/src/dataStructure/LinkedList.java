@@ -47,7 +47,7 @@ public class LinkedList {
      *
      * @param value (int) 리스트에 삽입하려는 값
      */
-    public void add(int value) {
+    public void insert(int value) {
         Node node = new Node(value);
         if(this.root==null) {
             this.root = node;
@@ -57,6 +57,38 @@ public class LinkedList {
                 point = point.next;
             }
             point.next = node;
+        }
+    }
+
+    /**
+     * 정렬 삽입 메소드:
+     *   - 값을 입력받아 해당 값을 가진 노드를 만들고 오름차순으로 정렬하여 삽입 리스트의 맨 뒤에 연결
+     *   - 리스트가 비어있는 경우 root에 연결
+     *
+     * @param value (int) 리스트에 삽입하려는 값
+     */
+    public void insertSorted(int value) {
+        Node node = new Node(value);
+        if (this.root==null) {
+            this.root = node;
+
+        } else if (value <= this.root.value) {
+            node.next = this.root;
+            this.root = node;
+
+        } else {
+            Node pre = null;
+            Node point = this.root;
+
+            while ((value > point.value)) {
+                pre = point;
+                point = point.next;
+                if (point==null) {
+                    break;
+                }
+            }
+            node.next = point;
+            pre.next = node;
         }
     }
 
@@ -72,11 +104,14 @@ public class LinkedList {
         try {
             if (isEmpty()) {
                 throw new Exception("List is Empty!");
+
             } else if (this.root.value==value) {
                 this.root = this.root.next;
+
             } else {
                 Node pre = this.root;
                 Node target = this.root.next;
+
                 while (target != null){
                     if (target.value==value) {
                         pre.next = target.next;
@@ -156,18 +191,18 @@ public class LinkedList {
         len = lkdList.length();
         System.out.println("Length of Linkedlist is " + len);
 
-        System.out.println("Add value : 1");
-        lkdList.add(1);
-        System.out.println("Add value : 2");
-        lkdList.add(2);
         System.out.println("Add value : 3");
-        lkdList.add(3);
-        System.out.println("Add value : 4");
-        lkdList.add(4);
-        System.out.println("Add value : 3");
-        lkdList.add(3);
+        lkdList.insertSorted(3);
         System.out.println("Add value : 5");
-        lkdList.add(5);
+        lkdList.insertSorted(5);
+        System.out.println("Add value : 2");
+        lkdList.insertSorted(2);
+        System.out.println("Add value : 1");
+        lkdList.insertSorted(1);
+        System.out.println("Add value : 4");
+        lkdList.insertSorted(4);
+        System.out.println("Add value : 3");
+        lkdList.insertSorted(3);
         lstStr = lkdList.toString();
         System.out.println(lstStr);
 
