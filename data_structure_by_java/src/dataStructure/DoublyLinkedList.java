@@ -62,6 +62,47 @@ public class DoublyLinkedList {
     }
 
     /**
+     * 오름차순 정렬 삽입 메소드:
+     *   - 삽입하려는 값을 입력받아서 오름차순으로 리스트에 연결
+     *   - 리스트가 비어있는 경우 root에 연결
+     *
+     * @param value (int) 리스트에 넣을 값
+     */
+
+    public void insertSorted(int value) {
+        DoublyNode node = new DoublyNode(value);
+
+        if (this.root == null) {
+            this.root = node;
+
+        } else if (value < this.root.value) {
+            node.next = this.root;
+            this.root.pre = node;
+            this.root = node;
+
+        } else {
+            DoublyNode pre = null;
+            DoublyNode point = this.root;
+
+            while (point.value < value) {
+                pre = point;
+                point = point.next;
+                if (point == null) {
+                    break;
+                }
+            }
+
+            node.next = point;
+            node.pre = pre;
+            pre.next = node;
+            if (point != null) {
+                point.pre = node;
+            }
+        }
+    }
+
+
+    /**
      * 삭제 메소드:
      *   - 삭제하려는 값을 입력받아서 리스트의 처음부터 탐색하면서 가장 먼저 값이 일치하는 노드 제거
      *
@@ -144,18 +185,16 @@ public class DoublyLinkedList {
     public static void main(String args[]) {
         DoublyLinkedList lkdList = new DoublyLinkedList();
 
-        System.out.println("Insert value : 1");
-        lkdList.insert(1);
         System.out.println("Insert value : 2");
-        lkdList.insert(2);
+        lkdList.insertSorted(2);
         System.out.println("Insert value : 5");
-        lkdList.insert(5);
+        lkdList.insertSorted(5);
         System.out.println("Insert value : 4");
-        lkdList.insert(4);
+        lkdList.insertSorted(4);
+        System.out.println("Insert value : 1");
+        lkdList.insertSorted(1);
         System.out.println("Insert value : 8");
-        lkdList.insert(8);
-        System.out.println("Insert value : 3");
-        lkdList.insert(3);
+        lkdList.insertSorted(8);
         lkdList.print();
         lkdList.printInverse();
 
@@ -169,18 +208,13 @@ public class DoublyLinkedList {
         lkdList.print();
         lkdList.printInverse();
 
-        System.out.println("Remove value : 3");
-        lkdList.remove(3);
-        lkdList.print();
-        lkdList.printInverse();
-
-        System.out.println("Remove value : 1");
-        lkdList.remove(1);
-        lkdList.print();
-        lkdList.printInverse();
-
         System.out.println("Remove value : 8");
         lkdList.remove(8);
+        lkdList.print();
+        lkdList.printInverse();
+
+        System.out.println("Remove value : 4");
+        lkdList.remove(5);
         lkdList.print();
         lkdList.printInverse();
 
@@ -191,6 +225,11 @@ public class DoublyLinkedList {
 
         System.out.println("Remove value : 4");
         lkdList.remove(4);
+        lkdList.print();
+        lkdList.printInverse();
+
+        System.out.println("Remove value : 4");
+        lkdList.remove(1);
         lkdList.print();
         lkdList.printInverse();
 
