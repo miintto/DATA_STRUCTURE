@@ -2,6 +2,11 @@ package dataStructure;
 /**
  * 자료구조 Linked Queue 구현
  *   - 구조: [rear] -> [ ] -> [ ] -> [front]
+ * <pre>
+ * <b>Method</b>
+ *     - enqueue() : 삽입 메소드
+ *     - dequeue() : 출력 메소드
+ * </pre>
  *
  * <pre>
  * <b>History:</b>
@@ -23,7 +28,9 @@ public class LinkedQueue {
 
     /**
      * 삽입 메소드:
-     *   - Queue 의 front 바로 다음에 노드 연결 후, front 값을 새 노드로 업데이트
+     * <pre>
+     * 생성한 노드를 front 바로 다음에 연결 후, front 값을 새 노드로 업데이트
+     * </pre>
      *
      * @param value (int) 큐에 넣을 값
      */
@@ -40,8 +47,10 @@ public class LinkedQueue {
     }
 
     /**
-     * 삭제 메소드:
-     *   - rear를 그 다음 값으로 업데이트 한 후 rear에 연결되어있는 값 제거
+     * 출력 메소드:
+     * <pre>
+     * - rear값 출력 후, rear를 그 다음 값으로 업데이트
+     * </pre>
      *
      * @exception Exception 큐가 비어있는 경우 예외처리
      */

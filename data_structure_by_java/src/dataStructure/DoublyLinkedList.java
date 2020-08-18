@@ -1,14 +1,21 @@
 package dataStructure;
 /**
- * 자료구조 Doubly Linked Stack 구현
+ * 자료구조 Doubly Linked List 구현
+ * <pre>
+ * <b>Method</b>
+ *     - insert() : 삽입 메소드
+ *     - insertSorted() : 오름차순 정렬 삽입 메소드
+ *     - remove() : 삭제 메소드
+ * </pre>
  *
  * <pre>
  * <b>History:</b>
- *     박민재, 1.0  2020.08.15 최초 작성
+ *     박민재, 1.0  2020.08.14 최초 작성
+ *     박민재, 1.1  2020.08.17 오름차순 정렬 로직 추가
  * </pre>
  *
  * @author 박민재
- * @version 1.0
+ * @version 1.1
  */
 
 class DoublyNode {
@@ -40,8 +47,11 @@ public class DoublyLinkedList {
 
     /**
      * 삽입 메소드:
-     *   - 삽입하려는 값을 입력받아서 리스트의 마지막에 노드 연결
-     *   - 리스트가 비어있는 경우 root에 연결
+     * <pre>
+     * <b>입력받은 값으로 노드를 생성하여 리스트의 맨 뒤에 삽입</b>
+     *     - root가 비어있는 경우 root에 연결
+     *     - root가 비어있지 않으면 리스트의 마지막을 찾아 양 방향으로 노드 연결
+     * </pre>
      *
      * @param value (int) 리스트에 넣을 값
      */
@@ -63,12 +73,15 @@ public class DoublyLinkedList {
 
     /**
      * 오름차순 정렬 삽입 메소드:
-     *   - 삽입하려는 값을 입력받아서 오름차순으로 리스트에 연결
-     *   - 리스트가 비어있는 경우 root에 연결
+     * <pre>
+     * <b>입력받은 값으로 노드를 생성하여 오름차순으로 삽입</b>
+     *     - root가 비어있는 경우 root에 연결
+     *     - root값보다 작은 경우 생성한 노드에 root를 연결하고 해당 노드를 root로 설정
+     *     - root값보다 큰 경우 노드값의 크기를 비교하여 연결
+     * </pre>
      *
      * @param value (int) 리스트에 넣을 값
      */
-
     public void insertSorted(int value) {
         DoublyNode node = new DoublyNode(value);
 
@@ -101,10 +114,13 @@ public class DoublyLinkedList {
         }
     }
 
-
     /**
      * 삭제 메소드:
-     *   - 삭제하려는 값을 입력받아서 리스트의 처음부터 탐색하면서 가장 먼저 값이 일치하는 노드 제거
+     * <pre>
+     * <b>삭제하려는 값을 입력받아서 값이 일치하는 노드 1개 제거</b>
+     *     - root값과 일치하는 경우 root 다음 노드를 root로 설정
+     *     - root값과는 다른 경우 리스트를 탐색하면서 값이 일치하는 노드를 찾아 제거
+     * </pre>
      *
      * @param value (int) 삭제하려는 노드의 값
      * @exception Exception 리스트가 비어있는 경우 예외처리

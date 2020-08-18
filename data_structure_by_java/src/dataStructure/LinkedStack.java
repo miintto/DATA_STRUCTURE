@@ -1,6 +1,11 @@
 package dataStructure;
 /**
  * 자료구조 Linked Stack 구현
+ * <pre>
+ * <b>Method</b>
+ *     - push() : 삽입 메소드
+ *     - pop() : 출력 메소드
+ * </pre>
  *
  * <pre>
  * <b>History:</b>
@@ -44,7 +49,9 @@ public class LinkedStack {
 
     /**
      * 삽입 메소드:
-     *   - 입력받은 값이 포함된 노드를 top에 연결하고, 원래 top에 연결되었던 노드들은 새 노드 뒤로 연결
+     * <pre>
+     * 입력받은 값으로 노드를 만들어 top에 연결
+     * </pre>
      *
      * @param value (String) 스택에 삽입할 값
      */
@@ -60,8 +67,10 @@ public class LinkedStack {
     }
 
     /**
-     * Pop 메소드:
-     *   - top에 있는 노드를 삭제하고 그 다음 연결되어 있던 노드를 top에 연결
+     * 출력 메소드:
+     * <pre>
+     * top에 있는 노드를 삭제하고 그 다음 연결되어 있던 노드를 top에 연결
+     * </pre>
      */
     public void pop(){
         try {

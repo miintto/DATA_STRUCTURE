@@ -1,6 +1,11 @@
 package dataStructure;
 /**
- * 자료구조 Stack 구현
+ * 자료구조 Array Stack 구현
+ * <pre>
+ * <b>Method</b>
+ *     - push() : 삽입 메소드
+ *     - pop() : 출력 메소드
+ * </pre>
  *
  * <pre>
  * <b>History:</b>
@@ -32,7 +37,9 @@ public class Stack {
 
     /**
      * 삽입 메소드:
-     *   - top 값 1 증가 후 입력받은 값을 top 위치에 삽입
+     * <pre>
+     * top 값 1 증가 후 입력받은 값을 top 위치에 삽입
+     * </pre>
      *
      * @param value (int) 스택에 삽입하려는 값
      * @exception Exception 가득 찬 경우 예외처리
@@ -50,8 +57,10 @@ public class Stack {
     }
 
     /**
-     * pop 메소드:
-     *   - top 위치의 값을 제거 후 top 값 1 감소
+     * 출력 메소드:
+     * <pre>
+     * top 위치의 값을 제거 후 top 값 1 감소
+     * </pre>
      *
      * @exception Exception 스택이 비어있는 경우 예외처리
      */

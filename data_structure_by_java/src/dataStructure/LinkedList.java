@@ -1,6 +1,12 @@
 package dataStructure;
 /**
  * 자료구조 Linked List 구현
+ * <pre>
+ * <b>Method</b>
+ *     - insert() : 삽입 메소드
+ *     - insertSorted() : 오름차순 정렬 삽입 메소드
+ *     - remove() : 삭제 메소드
+ * </pre>
  *
  * <pre>
  * <b>History:</b>
@@ -42,8 +48,11 @@ public class LinkedList {
 
     /**
      * 삽입 메소드:
-     *   - 값을 입력받아 해당 값을 가진 노드를 만들고 리스트의 맨 뒤에 연결
-     *   - 리스트가 비어있는 경우 root에 연결
+     * <pre>
+     * <b>입력받은 값으로 노드를 생성하여 리스트의 맨 뒤에 삽입</b>
+     *     - root가 비어있는 경우 root에 연결
+     *     - root가 비어있지 않으면 리스트의 마지막을 찾아 생성한 노드 연결
+     * </pre>
      *
      * @param value (int) 리스트에 삽입하려는 값
      */
@@ -61,9 +70,13 @@ public class LinkedList {
     }
 
     /**
-     * 정렬 삽입 메소드:
-     *   - 값을 입력받아 해당 값을 가진 노드를 만들고 오름차순으로 정렬하여 삽입 리스트의 맨 뒤에 연결
-     *   - 리스트가 비어있는 경우 root에 연결
+     * 오름차순 정렬 삽입 메소드:
+     * <pre>
+     * <b>입력받은 값으로 노드를 생성하여 오름차순으로 삽입</b>
+     *     - root가 비어있는 경우 root에 연결
+     *     - root값보다 작은 경우 생성한 노드에 root를 연결하고 해당 노드를 root로 설정
+     *     - root값보다 큰 경우 노드값의 크기를 비교하여 연결
+     * </pre>
      *
      * @param value (int) 리스트에 삽입하려는 값
      */
@@ -94,7 +107,11 @@ public class LinkedList {
 
     /**
      * 삭제 메소드:
-     *   - 삭제하려는 값을 입력받아서 리스트의 처음부터 탐색하면서 가장 먼저 값이 일치하는 노드 제거
+     * <pre>
+     * <b>삭제하려는 값을 입력받아서 값이 일치하는 노드 1개 제거</b>
+     *     - root값과 일치하는 경우 root 다음 노드를 root로 설정
+     *     - root값과는 다른 경우 리스트를 탐색하면서 값이 일치하는 노드를 찾아 제거
+     * </pre>
      *
      * @param value (int) 삭제하려는 노드의 값
      * @exception Exception 리스트가 비어있는 경우 예외처리
@@ -130,7 +147,10 @@ public class LinkedList {
     }
 
     /**
+     * 길이 출력 메소드:
+     * <pre>
      * 리스트의 현재 가지고 있는 노드의 개수 출력
+     * </pre>
      *
      * @return (int) 리스트의 길이
      */
@@ -145,8 +165,11 @@ public class LinkedList {
     }
 
     /**
-     * 존재 여부 확인 메소드
-     *   - 리스트를 처음부터 탐색하면서 노드의 값이 입력받은 값과 일차하면 true, 끝까지 탐색해도 없을 시 false 반환
+     * 존재 여부 확인 메소드:
+     * <pre>
+     * 리스트를 처음부터 탐색하면서 노드의 값이 입력받은 값과 일차하면 true,
+     * 끝까지 탐색해도 없을 시 false 반환
+     * </pre>
      *
      * @param value (int) 존재 여부를 확인하고 싶은 값
      * @return (boolean) 존재 여부
