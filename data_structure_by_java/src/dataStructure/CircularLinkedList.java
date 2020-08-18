@@ -4,6 +4,7 @@ package dataStructure;
  * <pre>
  * <b>Method</b>
  *     - insert() : 삽입 메소드
+ *     - delete() : 삭제 메소드
  * </pre>
  *
  * <pre>
@@ -47,7 +48,49 @@ public class CircularLinkedList {
             }
             node.next = this.root;
             point.next = node;
-            this.root = node;
+        }
+    }
+
+    /**
+     * 삭제 메소드:
+     * <pre>
+     * <b>입력받은 값이 있는 노드를 찾아 삭제</b>
+     *     - 삭제하려는 값이 자기 자신과 연결되어 있으면 root를 null처리
+     *     - 삭제하려는 값이 존재하는 노드의 이전 노드와 그 다음 노드를 연결
+     * </pre>
+     *
+     * @param value (int) 삭제하려는 노드의 값
+     * @exception Exception 찾는 값이 없는 경우 예외처리
+     */
+    public void delete(int value) {
+        Node point = this.root;
+        Node pre = null;
+        try {
+            while (point.value != value) {
+                pre = point;
+                point = point.next;
+                if (point==this.root) {
+                    throw new Exception("No value 3");
+                }
+            }
+
+            if (point.next == point) {
+                this.root = null;
+
+            } else if (pre == null) {
+                pre = point;
+                while (pre.next != this.root) {
+                    pre = pre.next;
+                }
+                pre.next = point.next;
+                this.root = point.next;
+
+            } else {
+                pre.next = point.next;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -76,6 +119,17 @@ public class CircularLinkedList {
         lst.insert(3);
         lst.insert(4);
         lst.insert(2);
+        lst.print();
+
+        lst.delete(5);
+        lst.print();
+        lst.delete(1);
+        lst.print();
+        lst.delete(2);
+        lst.print();
+        lst.delete(3);
+        lst.print();
+        lst.delete(4);
         lst.print();
     }
 }
